@@ -1,3 +1,5 @@
+// Rotas da API de tarefas, ele pega as requisições que chegam e direciona 
+// cada uma para o método correto do TarefaController.
 import {Router} from "express";
 import TarefaController from "../Controllers/TarefaController.js";
 

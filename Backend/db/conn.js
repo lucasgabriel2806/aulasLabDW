@@ -20,6 +20,7 @@ async function main() {
     console.log("Conectou MongoDb");
 }
 
+// Forma resumida do try catch
 main().catch((err)=>{
     console.log(err);    
 });

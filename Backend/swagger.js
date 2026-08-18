@@ -1,5 +1,10 @@
+// Esse arquivo gera uma documentação
+
+// Ela consegue analisar suas rotas e gerar 
+// automaticamente um arquivo de documentação
 import swaggerAutogen from "swagger-autogen";
 
+// Contém informações gerais sobre sua API que serão utilizadas pelo Swagger
 const doc = {
     info:{
         title: 'API ToDo List',
@@ -13,6 +18,8 @@ const doc = {
 const outputFile = './swagger-output.json';
 
 // Caminho para as rotas
+// Aqui você está dizendo: Swagger, procure as rotas neste arquivo
 const routesFile = ['./Routes/routes.js'];
 
+// Onde salvar, onde estão as rotas, informações gerais da API
 swaggerAutogen()(outputFile, routesFile, doc);
