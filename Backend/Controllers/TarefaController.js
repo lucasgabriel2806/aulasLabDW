@@ -1,5 +1,4 @@
 import Tarefa from "./../Models/Tarefa.js";
-import {Types} from "mongoose";
 
 export default class TarefaController {
     static async Create(req, res) {

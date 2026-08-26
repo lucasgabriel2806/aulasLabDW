@@ -3,9 +3,9 @@
 import {Router} from "express";
 import TarefaController from "../Controllers/TarefaController.js";
 
-const routes = new Router();
+const routesTarefa = new Router();
 
-routes.post("/create", TarefaController.Create);
-routes.get("/getAll", TarefaController.getAll);
+routesTarefa.post("/create", TarefaController.Create);
+routesTarefa.get("/getAll", TarefaController.getAll);
 
-export default routes;
+export default routesTarefa;

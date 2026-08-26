@@ -1,3 +1,13 @@
+/** 
+Para acessar o swagger
+
+ToDo/Backend/
+
+npm start
+
+localhost:5000/docs
+*/
+
 // Esse arquivo gera uma documentação
 
 // Ela consegue analisar suas rotas e gerar 
@@ -19,7 +29,10 @@ const outputFile = './swagger-output.json';
 
 // Caminho para as rotas
 // Aqui você está dizendo: Swagger, procure as rotas neste arquivo
-const routesFile = ['./Routes/routes.js'];
+const endpointsFiles = [
+    './Routes/routesTarefa.js', 
+    './Routes/routesUsuario.js'
+];
 
 // Onde salvar, onde estão as rotas, informações gerais da API
-swaggerAutogen()(outputFile, routesFile, doc);
+swaggerAutogen()(outputFile, endpointsFiles, doc);

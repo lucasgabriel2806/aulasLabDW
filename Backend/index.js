@@ -6,7 +6,8 @@ import express from "express";
 import cors from "cors";
 
 // Importa suas rotas de outro arquivo
-import routes from "./Routes/routes.js";
+import routesTarefa from "./Routes/routesTarefa.js";
+import routesUsuario from "./Routes/routesUsuario.js";
 
 // Biblioteca responsável por mostrar o Swagger no navegador
 import swaggerUi from "swagger-ui-express";
@@ -45,7 +46,8 @@ app.use(cors({
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Tudo que estiver dentro de routes será acessível começando por /ToDo
-app.use("/ToDo", routes);
+app.use("/ToDo", routesTarefa);
+app.use("/ToDo", routesUsuario);
 
 // Iniciando o servidor: Express começar a escutar requisições na porta 5000.
 app.listen(5000);
