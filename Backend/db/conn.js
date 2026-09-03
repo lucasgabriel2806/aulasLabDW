@@ -9,20 +9,21 @@ O Mongoose funciona como uma espécie de intermediário entre seu código JavaSc
 import mongoose from "mongoose";
 
 // Função para conectar no banco de dados
-async function main() {
+async function main(){
     // mongodb:// Indica que estamos usando uma conexão com MongoDB.
     // 127.0.0.1 ou localhost É o endereço do próprio computador.
     // :27017 É a porta padrão do MongoDB
-    // /ToDo É o Banco de Dados 
-
-    await mongoose.connect('mongodb://127.0.0.1:27017/ToDo');
-
+    // /ToDo É o Banco de Dados
+    
+    //await mongoose.connect('mongodb://localhost:27017/ToDo');
+    const databaseUrl = process.env.DATABASE_URL || 'mongodb://127.0.0.1:27017/ToDo';
+    await mongoose.connect(databaseUrl);
     console.log("Conectou MongoDb");
 }
 
 // Forma resumida do try catch
 main().catch((err)=>{
-    console.log(err);    
+    console.log(err);
 });
 
 // Quero disponibilizar o mongoose para outros arquivos do meu projeto poderem importá-lo.

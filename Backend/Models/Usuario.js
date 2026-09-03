@@ -5,37 +5,36 @@
 // Importando a conexão
 import mongoose from "../db/conn.js";
 
-
 const {Schema} = mongoose;
 
 // Schema de usuário
 const usuarioSchema = new Schema({
     nome:{
         type: String,
-        required: true,    
-        trim: true     
-    }, 
+        required: true,
+        trim: true
+    },
     email:{
-        type: String,
+        type:String,
         required: true,
         unique: true,
-        trim: true,
-        lowercase: true
+        trim:true,
+        lowercase:true
     },
     senha:{
-        type: String,
-        required: true,
-        select: false
+        type:String,
+        required:true,
+        select:false
     },
     resetToken:{
-        type: String,
-        select: false,
+        type:String,
+        select:false,
     },
     resetTokenExpiry:{
-        type: Date,
-        select: false,
+        type:Date,
+        select:false,
     }
-}, { timestamps: true });
+},{timestamps:true});
 
 /** 
 Schema não é a mesma coisa que Model
@@ -43,8 +42,6 @@ Isso cria a Model
 
 SCHEMA: Define como uma Tarefa deve ser
 MODEL: Permite trabalhar com as Tarefas no banco
-
-
  */
 const Usuario = mongoose.model('Usuario', usuarioSchema);
 
