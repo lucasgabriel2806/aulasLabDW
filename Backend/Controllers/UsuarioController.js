@@ -227,8 +227,8 @@ export default class UsuarioController
             const usuarios = await Usuarios.find({_id: {$ne:usuarioLogado}})
             .select("nome")
             .sort({nome:1});
-
-            return res.status(200).json(usuarios);
+            console.log(usuarios);
+            return res.status(200).json({usuarios});
 
         }
         catch(error) {

@@ -109,8 +109,7 @@ export default function TodoForm() {
                       className="h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
                     />
                     <span className="text-sm text-gray-700">
-                      {user.nome}{" "}
-                      <span className="text-xs text-gray-400">({user.email})</span>
+                      {user.nome}
                     </span>
                   </label>
                 ))

@@ -3,6 +3,12 @@ import "dotenv/config"; //tem que ser a primeira linha no index.js
 // Express é um framework usado para criar o servidor HTTP e a API
 import express from "express";
 
+// websocket
+import {Server} from "socket.io";
+// Juntar o express e websocket
+import {createServer} from "http";
+import registerChatSocket from "./Socket/registerChatSocket.js";
+
 // CORS (Cross-Origin Resource Sharing) Ele controla quais 
 // aplicações podem fazer requisições para seu backend
 import cors from "cors";
@@ -10,6 +16,7 @@ import cors from "cors";
 // Importa suas rotas de outro arquivo
 import routesTarefa from "./Routes/routesTarefa.js";
 import routesUsuario from "./Routes/routesUsuario.js";
+import routesChat from "./Routes/routesChat.js";
 
 // Biblioteca responsável por mostrar o Swagger no navegador
 import swaggerUi from "swagger-ui-express";
@@ -20,6 +27,7 @@ Ela permite usar o sistema tradicional require() dentro de um projeto que está 
  */
 import { createRequire } from "module";
 import cookieParser from "cookie-parser";
+
 const PORT = process.env.PORT || 5000;
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 
@@ -48,6 +56,26 @@ app.use(cors({
 
 app.use(cookieParser());
 
+// Criar um servidor HTTP
+const httpServer = createServer(app);
+
+// Iniciar o websocket
+const io = new Server(httpServer, {
+    cors: {
+        origin: FRONTEND_URL,
+        credentials: true,
+    }
+});
+
+io.on("connection", (socket) => {
+    console.log(`Usuário conectado: ${socket.id}`);
+    registerChatSocket(io, socket);
+    socket.on("disconnect", () => {
+        console.log(`Usuário desconectou: ${socket.id}`);
+    });
+});
+
+
 //obrigatoriamente o swagger deve vir antes das rotas
 // Cria a página do Swagger
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -55,6 +83,8 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Tudo que estiver dentro de routes será acessível começando por /ToDo
 app.use("/ToDo", routesTarefa);
 app.use("/ToDo", routesUsuario);
+app.use("/ToDo", routesChat);
 
-// Iniciando o servidor: Express começar a escutar requisições na porta 5000.
-app.listen(PORT);
+httpServer.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);  
+});
