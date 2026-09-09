@@ -3,6 +3,8 @@ import { Routes, Route, Link, useNavigate, Navigate } from "react-router-dom";
 import LandingPage from "./Pages/LandingPage";
 import TodoList from "./Pages/TodoList";
 import Login from "./Pages/Login";
+import CreateUsuario from "./Pages/CreateUsuario";
+import ForgotPassword from "./Pages/ForgotPassword";
 import TodoForm from "./Pages/TodoForm";
 import logoTodo from "./assets/logo-todo.png";
 import { logout, getProfile } from "./api/Todo.jsx";
@@ -122,6 +124,14 @@ export default function App() {
                       }} />
                     )
                   }
+                />
+                <Route
+                  path="createUsuario"
+                  element={<CreateUsuario />}
+                />
+                <Route
+                  path="forgotPassword"
+                  element={<ForgotPassword />}
                 />
               </Routes>
             </main>

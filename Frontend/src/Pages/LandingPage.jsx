@@ -28,7 +28,7 @@ export default function LandingPage() {
         </p>
        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
           <Link
-            to="/register"
+            to="/createUsuario"
             className="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-colors text-center"
           >
             Criar Conta Grátis

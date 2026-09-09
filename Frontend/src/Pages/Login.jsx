@@ -78,7 +78,7 @@ export default function Login({ onLoginSuccess }) {
 
       <div className="mt-5 text-center pt-2">
         <Link
-          to="/forgot"
+          to="/forgotPassword"
           className="text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors"
         >
           Esqueci a senha
