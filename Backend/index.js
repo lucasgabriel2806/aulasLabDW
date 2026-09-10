@@ -86,5 +86,5 @@ app.use("/ToDo", routesUsuario);
 app.use("/ToDo", routesChat);
 
 httpServer.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);  
+    `Servidor rodando na porta ${PORT}`;  
 });

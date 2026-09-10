@@ -1,0 +1,23 @@
+//TodoItem
+ {/*Botão para abrir o modal de Chat */}
+            <button
+              onClick={() => setIsChatOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg transition-colors cursor-pointer ml-auto"
+              title="Abrir chat da tarefa"
+            >
+              <span>💬</span>
+              <span>Chat</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Modal do Chat acionado pelo estado */}
+      {isChatOpen && (
+        <TaskChatModal
+          tarefa={todo}
+          usuarioLogado={usuarioLogado}
+          onClose={() => setIsChatOpen(false)}
+        />
+      )}
+    </>
