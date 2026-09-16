@@ -63,7 +63,11 @@ export default function TodoList() {
             </p>
           ) : (
             todos?.map((todo) => (
-              <TodoItem key={todo._id || todo.id} todo={todo} />
+              <TodoItem 
+                key={todo._id || todo.id} 
+                todo={todo} 
+                usuarioLogado={usuarioLogado} 
+              />
             ))
           )}
         </div>

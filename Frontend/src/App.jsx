@@ -3,33 +3,33 @@ import { Routes, Route, Link, useNavigate, Navigate } from "react-router-dom";
 import LandingPage from "./Pages/LandingPage";
 import TodoList from "./Pages/TodoList";
 import Login from "./Pages/Login";
-import CreateUsuario from "./Pages/CreateUsuario";
-import ForgotPassword from "./Pages/ForgotPassword";
 import TodoForm from "./Pages/TodoForm";
 import logoTodo from "./assets/logo-todo.png";
 import { logout, getProfile } from "./api/Todo.jsx";
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [usuarioLogado, setUsuarioLogado] = useState(null); 
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  
-  useEffect(() => {
-    const checkUserSession = async () => {
-      try {
-        const response = await getProfile();
-        if (response.status === 200) {
-          setIsAuthenticated(true);
-        }
-      } catch (error) {
-        console.log("Sessão não encontrada ou expirada:", error);
-        setIsAuthenticated(false);
-      } finally {
-        setLoading(false);
+  const checkUserSession = async () => {
+    try {
+      const response = await getProfile();
+      if (response.status === 200) {
+        setIsAuthenticated(true);
+        setUsuarioLogado(response.data.usuario || response.data); 
       }
-    };
+    } catch (error) {
+      console.log("Sessão não encontrada ou expirada:", error);
+      setIsAuthenticated(false);
+      setUsuarioLogado(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     checkUserSession();
   }, []);
 
@@ -40,11 +40,11 @@ export default function App() {
       console.error("Erro ao fazer logout:", error);
     } finally {
       setIsAuthenticated(false);
+      setUsuarioLogado(null);
       navigate("/");
     }
   };
 
-  
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -55,14 +55,13 @@ export default function App() {
 
   return (
     <Routes>
-      
       <Route
         path="/"
         element={
           isAuthenticated ? <Navigate to="/todos" replace /> : <LandingPage />
         }
       />
-     <Route
+      <Route
         path="/*"
         element={
           <div className="min-h-screen bg-gray-50 p-6">
@@ -91,11 +90,8 @@ export default function App() {
                       </button>
                     </>
                   )}
-                  
                 </div>
-
               </nav>
-
             </header>
 
             <main className="max-w-3xl mx-auto">
@@ -103,7 +99,11 @@ export default function App() {
                 <Route
                   path="todos"
                   element={
-                    isAuthenticated ? <TodoList /> : <Navigate to="/login" replace />
+                    isAuthenticated ? (
+                      <TodoList usuarioLogado={usuarioLogado} /> 
+                    ) : (
+                      <Navigate to="/login" replace />
+                    )
                   }
                 />
                 <Route
@@ -118,20 +118,14 @@ export default function App() {
                     isAuthenticated ? (
                       <Navigate to="/todos" replace />
                     ) : (
-                      <Login onLoginSuccess={() => {
-                        setIsAuthenticated(true);
-                        navigate("/todos");
-                      }} />
+                      <Login
+                        onLoginSuccess={() => {
+                          checkUserSession(); // 🟢 Recarrega a sessão ao logar com sucesso
+                          navigate("/todos");
+                        }}
+                      />
                     )
                   }
-                />
-                <Route
-                  path="createUsuario"
-                  element={<CreateUsuario />}
-                />
-                <Route
-                  path="forgotPassword"
-                  element={<ForgotPassword />}
                 />
               </Routes>
             </main>
