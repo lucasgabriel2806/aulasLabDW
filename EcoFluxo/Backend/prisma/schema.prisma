@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+modelUsuario {
+  id        Int       @id @default(autoincrement())
+  nome      String
+  email     String    @unique
+  senha     String
+  perfil    Perfil    @deafult(MORADOR)
+  criadoEm  DateTime  @default(now())
+  @@map("usuarios")
+}
+
+model Ecoponto {
+  id          Int @id @default(autoincrement())
+  nome        String
+  latitude    String
+  longitude   String
+  descrição   String?
+  cep         String?
+  logradouro  String?
+  numero      String?
+  bairro      String?
+  cidade      String?
+  uf          String?
+  nota        Int?
+  criadoEm DateTime @default(now())
+  lixeiras[]
+  @@map("ecopontos")
+}
+
+model Lixeira {
+  id           Int     @id @default(autoincrement())
+  uuid_sensor  String
+  tipo         Tipo
+  volume_max   Int
+  nivel_cheio  Int
+  ecoponto_id  Int
+  criadoEm     DateTime    @default(now())
+  ecoponto     Ecoponto    @relation(fields:[ecoponto_id], references:[id], onDelete:Cascade)
+  @@map("lixeiras")
+}

@@ -61,6 +61,11 @@ export default function App() {
           isAuthenticated ? <Navigate to="/todos" replace /> : <LandingPage />
         }
       />
+
+      {/* 
+      * é um wildcard (coringa), /sobre, /user/123
+      especialmente comum pra quando você coloca um componente que possui suas próprias rotas internas:
+      /admin/*, /admin/dashboard, /admin/usuarios */}
       <Route
         path="/*"
         element={

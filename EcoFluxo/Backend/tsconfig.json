@@ -1,0 +1,14 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    "module": "nodenext", // Pegar as versões mais atuais
+    "moduleResolution": "nodenext", // Ajuda a processar os caminhos
+    "target": "esnext", // Pega a versão mais atual do JavaScript
+    "types": ["node"],
+    "lib": ["esnext"],
+    "strict": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+  }
+}
